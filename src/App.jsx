@@ -12,6 +12,8 @@ import DataVisualization from './pages/DataVisualization';
 import KNNModel from './algorithms/KNNModel';
 import TimeSeriesModel from './algorithms/TimeSeriesModel';
 import KMeansClustering from './algorithms/Clustering';
+import OutlierDetection from './algorithms/OutlierDetection';
+
 import HomePage from "./HomePage"
 function App() {
 
@@ -33,6 +35,8 @@ function App() {
         <Route exact path="/algorithms/knn_classification" element={<KNNModel />} />
         <Route exact path="/algorithms/kmeans_clustering" element={<KMeansClustering />} />
         <Route exact path="/algorithms/time_series_analysis" element={<TimeSeriesModel />} />
+        <Route exact path="/algorithms/outlier_detection" element={<OutlierDetection />} />
+
       </Routes>
     </>
   );
