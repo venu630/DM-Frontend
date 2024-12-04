@@ -6,6 +6,8 @@ import { ProgressSpinner } from "primereact/progressspinner";
 import { Card } from "primereact/card";
 import { Toast } from "primereact/toast";
 import { Panel } from "primereact/panel";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
 
 const attributes = [
   { label: "Salary (USD)", value: "salary_in_usd" },
@@ -52,6 +54,17 @@ const OutlierDetection = () => {
     setLoading(false);
   };
 
+  // Combine job titles and salaries into an array of objects for DataTable
+  const getOutlierData = () => {
+    if (outliersData) {
+      return outliersData.outlier_job_titles.map((jobTitle, index) => ({
+        job_title: jobTitle,
+        salary_in_usd: outliersData.outlier_salaries[index],
+      }));
+    }
+    return [];
+  };
+
   return (
     <div className="p-d-flex p-jc-center p-ai-center p-mt-5">
       <Toast ref={toast} />
@@ -95,6 +108,14 @@ const OutlierDetection = () => {
                 {outliersData ? (
                   <div>
                     <p><strong>Outliers Count:</strong> {outliersData.outliers.length}</p>
+
+                    {/* Displaying Outliers in Table */}
+                    <DataTable value={getOutlierData()} paginator rows={5} className="p-datatable-sm">
+                      <Column field="job_title" header="Job Title" />
+                      <Column field="salary_in_usd" header="Salary (USD)" />
+                    </DataTable>
+
+                    {/* Display Outlier Plot */}
                     <div className="p-d-flex p-jc-center">
                       <img
                         src={`data:image/png;base64,${plotImage}`}
